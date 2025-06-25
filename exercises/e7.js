@@ -22,9 +22,14 @@
 export function parsePromised(str) {
   // Your code goes here...
 
-  return new Promise((resolve, reject) => resolve(str))
-    .then((data) => JSON.parse(data))
-    .catch((err) => err);
+  return new Promise((resolve, reject) => {
+    try {
+      const parsedStr = JSON.parse(str);
+      resolve(parsedStr);
+    } catch (err) {
+      reject(err);
+    }
+  });
 }
 
 /**
@@ -53,14 +58,13 @@ export function onReject(err) {
 
 export const handlePromise = (promise) => {
   // Your code goes here...
-  return promise.then(
-    (data) => data,
-    (reason) => {
-      if (reason && reason.message) {
-        return onReject(reason);
-      } else return reason;
-    }
-  );
+  return promise
+    .then((data) => data)
+    .catch((err) => {
+      if (err.message) {
+        return onReject(err);
+      } else console.log(err);
+    });
 };
 
 // === TEST YOURSELF ===
