@@ -20,7 +20,8 @@ export const getPromise = (arg) => {
   return new Promise((resolve, reject) => {
     if (arg === true) {
       resolve("The PROMISE was RESOLVED");
-    } else reject("The PROMISE was REJECTED");
+    }
+    reject("The PROMISE was REJECTED");
   });
 };
 
@@ -36,9 +37,7 @@ export const getPromise = (arg) => {
 export const handlePromise = (prom) => {
   // Your code goes here...
   const onFulfilled = (data) => data;
-  const onRejected = () => {
-    return "Uh Oh";
-  };
+  const onRejected = () => "Uh Oh";
 
   return prom.then(onFulfilled, onRejected);
 };

@@ -10,28 +10,16 @@ export const getFirstPromiseOrFail = (promises) => {
 
 export const getQuantityOfRejectedPromises = (promises) => {
   //*  write code to pass test ⬇ ️
-  let rejCount = 0;
-  return Promise.allSettled(promises).then((results) => {
-    results.forEach((data) => {
-      if (data.status === "rejected") {
-        rejCount++;
-      }
-    });
-    return rejCount;
-  });
+  return Promise.allSettled(promises).then(
+    (values) => values.filter((data) => data.status === "rejected").length
+  );
 };
 
 export const getQuantityOfFulfilledPromises = (promises) => {
   //*  write code to pass test ⬇ ️
-  let count = 0;
-  return Promise.allSettled(promises).then((results) => {
-    results.forEach((data) => {
-      if (data.status === "fulfilled") {
-        count++;
-      }
-    });
-    return count;
-  });
+  return Promise.allSettled(promises).then(
+    (values) => values.filter((data) => data.status === "fulfilled").length
+  );
 };
 
 //!  ⬇ ⬇ ⬇ ⬇ Don't Edit This Array ⬇ ⬇ ⬇ ⬇
@@ -69,6 +57,6 @@ export const fetchAllCharactersByIds = async (ids) => {
 
   return Promise.all(characters).then(
     (data) => data,
-    (err) => []
+    () => []
   );
 };
